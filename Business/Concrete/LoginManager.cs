@@ -37,6 +37,21 @@ namespace Business.Concrete
             return _loginDal.GetLoginDetails();
         }
 
+        public bool CheckCredentials(string email, string password)
+        {
+
+            // Örnek olarak, kullanıcıyı veritabanında e-posta adresine göre bulunur
+            var users = _loginDal.GetAll(u => u.Email == email);
+
+            // Kullanıcı bulunamazsa veya şifre eşleşmezse false döndür
+            if (users == null || !users.Any(user => user.Password == password))
+            {
+                return false;
+            }
+
+            // Eğer buraya kadar geldiyse, e-posta ve şifre doğrudur
+            return true;
+        }
         public void Update(LoginMaterials entity)
         {
            _loginDal.Update( entity );

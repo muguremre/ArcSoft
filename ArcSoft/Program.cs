@@ -20,9 +20,12 @@ namespace ArcSoft
             builder.Services.AddSingleton<ILoginService, LoginManager>(); // IComputerService istenirse ComputerManager ver
             builder.Services.AddSingleton<ILoginDal, EfLoginMaterialsDal>(); // IComputerDal istenirse EfComputerDal ver
 
+            builder.Services.AddCors(options =>
+                    options.AddDefaultPolicy(builder =>
+                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 
             var app = builder.Build();
-           
+           app.UseCors();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
