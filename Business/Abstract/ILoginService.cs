@@ -11,5 +11,6 @@ namespace Business.Abstract
 {
     public interface ILoginService : IEntityRepositoryBase<LoginMaterials>
     {
+       bool CheckCredentials(string email, string password);
     }
 }
