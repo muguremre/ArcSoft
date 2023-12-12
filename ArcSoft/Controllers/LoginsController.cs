@@ -9,9 +9,12 @@ namespace ArcSoft.Controllers
     public class LoginsController : ControllerBase
     {
         ILoginService _loginService;
-        public LoginsController(ILoginService loginService)
+        IBearerTokenService _authManager;
+        public LoginsController(ILoginService loginService, IBearerTokenService authManager)
         {
             _loginService = loginService;
+            _authManager = authManager;
+
         }
 
 
@@ -38,11 +41,11 @@ namespace ArcSoft.Controllers
                 LoginMaterialId = entity.LoginMaterialId,
             };
             _loginService.Add(entiti);
-            return Ok(StatusCode(200,"Data added successfully."));
+            return Ok(StatusCode(200,"Computer added successfully."));
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest model)
+        public IActionResult Login([FromBody] LoginMaterials model)
         {
             if (model == null || string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
             {
@@ -55,14 +58,9 @@ namespace ArcSoft.Controllers
             {
                 return Unauthorized("Yanlış Şifre Veya Kullanıcı Adı.");
             }
-
+            var token = _authManager.GenerateToken(model.LoginMaterialId);
             return Ok("Giriş başarılı");
         }
     }
 
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
 }
