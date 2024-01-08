@@ -10,11 +10,12 @@ namespace ArcSoft.Controllers
     {
         ILoginService _loginService;
         IBearerTokenService _authManager;
-        public LoginsController(ILoginService loginService, IBearerTokenService authManager)
+        IVoteService _voteService;
+        public LoginsController(ILoginService loginService, IBearerTokenService authManager, IVoteService voteService)
         {
             _loginService = loginService;
             _authManager = authManager;
-
+            _voteService = voteService;
         }
 
 
@@ -33,15 +34,21 @@ namespace ArcSoft.Controllers
                 return Ok(StatusCode(404,"Invalid data received."));
 
             }
+            var entityy = new VoteMaterials {
+
+                VoteMaterialId = entity.VoteMaterialId,
+            };
             var entiti = new LoginMaterials
             {
+                LoginMaterialId = entity.LoginMaterialId,
                 Email = entity.Email,
                 UserName = entity.UserName,
                 Password = entity.Password,
-                LoginMaterialId = entity.LoginMaterialId,
+                isAdmin =  entity.isAdmin,
+                VoteMaterialId = entity.VoteMaterialId,
             };
             _loginService.Add(entiti);
-            return Ok(StatusCode(200,"Computer added successfully."));
+            return Ok(StatusCode(200,"Person added successfully."));
         }
 
         [HttpPost("login")]
@@ -59,7 +66,8 @@ namespace ArcSoft.Controllers
                 return Unauthorized("Yanlış Şifre Veya Kullanıcı Adı.");
             }
             var token = _authManager.GenerateToken(model.LoginMaterialId);
-            return Ok("Giriş başarılı");
+
+            return Ok(model);
         }
     }
 

@@ -82,6 +82,8 @@ namespace ArcSoft
                     }
                 });
             });
+            builder.Services.AddSingleton<IVoteService,VoteManager>();
+            builder.Services.AddSingleton<IVoteDal, EfVoteDal>();
             builder.Services.AddSingleton<ILoginService, LoginManager>();
             builder.Services.AddSingleton<ILoginDal, EfLoginMaterialsDal>();
             builder.Services.AddSingleton<IBearerTokenService, BearerTokenService>();
