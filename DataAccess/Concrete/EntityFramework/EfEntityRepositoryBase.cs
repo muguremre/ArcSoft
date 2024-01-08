@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepositoryBase<TEntity>
-        where TEntity : class, ILoginMaterials,new()
+        where TEntity : class,new()
         where TContext : DbContext, new()
 
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IEntityRepositoryBase <T> where T : class, ILoginMaterials, new()
+    public interface IEntityRepositoryBase <T> where T : class, new()
     {
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
         void Add(T entity);

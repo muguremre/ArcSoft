@@ -14,7 +14,8 @@ namespace DataAccess.Concrete.EntityFramework
         {
             optionsBuilder.UseSqlServer(@"Server=muguremre;Database=ArcSoft;Trusted_Connection=true; TrustServerCertificate=true");
         }
-        public DbSet<LoginMaterials>? LoginPage { get; set; }
+        public DbSet<LoginMaterials> LoginMaterials { get; set; }
+        public DbSet<VoteMaterials>? VoteMaterials { get; set; }
 
     }
 }

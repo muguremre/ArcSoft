@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class LoginMaterials : ILoginMaterials
+    public class VoteMaterials : IVoteMaterials
     {
         [Key]
-        public Guid LoginMaterialId { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
-        public string? UserName { get; set; }
-        public bool isAdmin { get; set; }
-
-        [ForeignKey("VoteMaterials")]
         public Guid VoteMaterialId { get; set; }
+
+        public DateTime VoteTime{ get; set; }
+        public int VoteCount { get; set; }
+        public String? VoteName  { get; set; }
 
     }
 }
